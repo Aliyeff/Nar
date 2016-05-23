@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Nar</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_language">Language</string>
+    <string name="action_exit">Exit</string>
+    <string name="welcome">Welcome</string>
+    <string name="your_phone_number">Your Phone Number</string>
+    <string name="name">Name Surname Patronimic</string>
+    <string name="phone_number">1234567890</string>
+    <!-- Menu Groups -->
+    <string name="user_information">User Information</string>
+    	<!-- Menu Items -->
+    	<string name="service_password">Service Password</string>
+    	<string name="subscriber_information">Subscriber Information</string>
+    	<string name="account_information">Account Information</string>
+    	<string name="my_offerings">My Offerings</string>
+    	<string name="change_language">Change Language</string>
+    	<string name="account_status">Account Status</string>
+    	<string name="transactions_history">transactions History</string>
+    	<string name="logon_history">Logon History</string>
+    	<!--  -->
+    <string name="operations">Operations</string>
+    	<!-- Menu Items -->
+    	<string name="cancel_supplementary_offering">Cancel Supplementary Offering</string>
+    	<string name="order_supplementary_offering">Order Supplementary Offering</string>
+    	<string name="send_sms">Send SMS</string>
+    	<string name="modify_primary_offering">Modify Primary Offering</string>
+    	<string name="favorite_numbers">Favorite Numbers</string>
+    	<string name="activate_scratch_card">Activate Scratch Card</string>
+    	<string name="money_transfer">Money Transfer</string>
+    	<!--  -->
+    	
+</resources>
