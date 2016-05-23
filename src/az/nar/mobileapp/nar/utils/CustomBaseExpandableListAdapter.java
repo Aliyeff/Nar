@@ -5,82 +5,80 @@ import java.util.List;
 import android.view.LayoutInflater;
 import android.widget.BaseExpandableListAdapter;
 
-public abstract class CustomBaseExpandableListAdapter extends
-		BaseExpandableListAdapter {
+public abstract class CustomBaseExpandableListAdapter extends BaseExpandableListAdapter {
 
-	private List<? extends ListGroup> list;
-	protected LayoutInflater inflater;
+    private List<? extends ListGroup> list;
+    protected LayoutInflater inflater;
 
-	public CustomBaseExpandableListAdapter(LayoutInflater inflater,
-			List<? extends ListGroup> list) {
-		this.list = list;
-		this.inflater = inflater;
+    public CustomBaseExpandableListAdapter(LayoutInflater inflater, List<? extends ListGroup> list) {
+	this.list = list;
+	this.inflater = inflater;
+    }
+
+    @Override
+    public Object getChild(int groupPosition, int childPosition) {
+	if (list != null) {
+	    List<? extends SimpleElement> children = list.get(groupPosition).getChildren();
+
+	    if (children != null) {
+		return children.get(childPosition);
+	    }
 	}
 
-	@Override
-	public Object getChild(int groupPosition, int childPosition) {
-		if (list != null) {
-			List<? extends SimpleElement> children = list.get(groupPosition).getChildren();
+	return null;
+    }
 
-			if (children != null) {
-				return children.get(childPosition);
-			}
-		}
+    @Override
+    public long getChildId(int groupPosition, int childPosition) {
+	if (list != null) {
+	    List<? extends SimpleElement> children = list.get(groupPosition).getChildren();
 
-		return null;
+	    if (children != null) {
+		return children.get(childPosition).getId();
+	    }
 	}
 
-	@Override
-	public long getChildId(int groupPosition, int childPosition) {
-		if (list != null) {
-			List<? extends SimpleElement> children = list.get(groupPosition).getChildren();
+	return 0;
+    }
 
-			if (children != null) {
-				return children.get(childPosition).getId();
-			}
-		}
+    @Override
+    public int getChildrenCount(int groupPosition) {
+	if (list != null) {
+	    List<? extends SimpleElement> children = list.get(groupPosition).getChildren();
 
-		return 0;
+	    if (children != null) {
+		return children.size();
+	    }
 	}
 
-	@Override
-	public int getChildrenCount(int groupPosition) {
-		if (list != null) {
-			List<? extends SimpleElement> children = list.get(groupPosition).getChildren();
+	return 0;
+    }
 
-			if (children != null) {
-				return children.size();
-			}
-		}
-
-		return 0;
+    @Override
+    public Object getGroup(int groupPosition) {
+	if (list != null) {
+	    return list.get(groupPosition);
 	}
 
-	@Override
-	public Object getGroup(int groupPosition) {
-		if (list != null) {
-			return list.get(groupPosition);
-		}
+	return null;
+    }
 
-		return null;
+    @Override
+    public int getGroupCount() {
+	if (list != null) {
+	    return list.size();
 	}
 
-	@Override
-	public int getGroupCount() {
-		if (list != null) {
-			return list.size();
-		}
+	return 0;
+    }
 
-		return 0;
+    @Override
+    public long getGroupId(int groupPosition) {
+	if (list != null) {
+	    return list.get(groupPosition).getId();
 	}
 
-	@Override
-	public long getGroupId(int groupPosition) {
-		if (list != null) {
-			return list.get(groupPosition).getId();
-		}
-
-		return 0;
-	}
+	return 0;
+    }
 
 }

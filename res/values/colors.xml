@@ -2,4 +2,6 @@
 <resources>
     <color name="nar_maron">#B0043E</color>
     <color name="white">#FFFFFF</color>
+    <color name="title_color">#333333</color>
+    <color name="disabled_text">#696969</color>
 </resources>

@@ -14,57 +14,56 @@ import az.nar.mobileapp.nar.utils.ListGroup;
 import az.nar.mobileapp.nar.view.MenuGroup;
 import az.nar.mobileapp.nar.view.MenuItem;
 
-public class MenuAdapter extends CustomBaseExpandableListAdapter{
+public class MenuAdapter extends CustomBaseExpandableListAdapter {
 
-	public MenuAdapter(LayoutInflater inflater, List<? extends ListGroup> list) {
-		super(inflater, list);
+    public MenuAdapter(LayoutInflater inflater, List<? extends ListGroup> list) {
+	super(inflater, list);
+    }
+
+    @Override
+    public boolean hasStableIds() {
+	return true;
+    }
+
+    @Override
+    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+	if (convertView == null) {
+	    convertView = inflater.inflate(R.layout.item_group, parent, false);
 	}
 
-	@Override
-	public boolean hasStableIds() {
-		return true;
+	MenuGroup group = (MenuGroup) getGroup(groupPosition);
+	CheckedTextView ctv = (CheckedTextView) convertView;
+	ctv.setText(group.getName());
+	ctv.setChecked(isExpanded);
+
+	return convertView;
+    }
+
+    @Override
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView,
+	ViewGroup parent) {
+
+	MenuItem child = (MenuItem) getChild(groupPosition, childPosition);
+
+	if (convertView == null) {
+	    convertView = inflater.inflate(R.layout.item_child, parent, false);
 	}
 
-	@Override
-	public View getGroupView(int groupPosition, boolean isExpanded,
-			View convertView, ViewGroup parent) {
-		if (convertView == null) {
-			convertView = inflater.inflate(R.layout.item_group, parent, false);
-		}
-		
-		MenuGroup group = (MenuGroup) getGroup(groupPosition);
-		CheckedTextView ctv = (CheckedTextView) convertView;
-		ctv.setText(group.getName());
-		ctv.setChecked(isExpanded);
-		
-		return convertView;
-	}
+	((TextView) convertView).setText(child.getName());
 
-	@Override
-	public View getChildView(int groupPosition, int childPosition,
-			boolean isLastChild, View convertView, ViewGroup parent) {
-		
-		MenuItem child = (MenuItem) getChild(groupPosition, childPosition);
-	    
-		if (convertView == null) {
-	      convertView = inflater.inflate(R.layout.item_child, parent, false);
+	convertView.setOnClickListener(new OnClickListener() {
+
+	    @Override
+	    public void onClick(View v) {
+
 	    }
-	    
-		((TextView) convertView).setText(child.getName());
-	    
-	    convertView.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				
-			}
-		});
-	    return convertView;
-	}
+	});
+	return convertView;
+    }
 
-	@Override
-	public boolean isChildSelectable(int groupPosition, int childPosition) {
-		return true;
-	}
+    @Override
+    public boolean isChildSelectable(int groupPosition, int childPosition) {
+	return true;
+    }
 
 }
