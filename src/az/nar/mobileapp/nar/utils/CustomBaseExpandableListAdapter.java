@@ -8,11 +8,11 @@ import android.widget.BaseExpandableListAdapter;
 public abstract class CustomBaseExpandableListAdapter extends BaseExpandableListAdapter {
 
     private List<? extends ListGroup> list;
-    protected LayoutInflater inflater;
+    protected LayoutInflater mInflater;
 
     public CustomBaseExpandableListAdapter(LayoutInflater inflater, List<? extends ListGroup> list) {
 	this.list = list;
-	this.inflater = inflater;
+	this.mInflater = inflater;
     }
 
     @Override

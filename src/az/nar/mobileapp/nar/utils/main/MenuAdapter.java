@@ -1,11 +1,10 @@
-package az.nar.mobileapp.nar;
+package az.nar.mobileapp.nar.utils.main;
 
 import java.util.List;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.CheckedTextView;
 import android.widget.TextView;
 import az.nar.mobileapp.nar.R;
@@ -14,7 +13,7 @@ import az.nar.mobileapp.nar.utils.ListGroup;
 import az.nar.mobileapp.nar.view.MenuGroup;
 import az.nar.mobileapp.nar.view.MenuItem;
 
-public class MenuAdapter extends CustomBaseExpandableListAdapter {
+public class MenuAdapter extends CustomBaseExpandableListAdapter{
 
     public MenuAdapter(LayoutInflater inflater, List<? extends ListGroup> list) {
 	super(inflater, list);
@@ -28,14 +27,15 @@ public class MenuAdapter extends CustomBaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 	if (convertView == null) {
-	    convertView = inflater.inflate(R.layout.item_group, parent, false);
+	    convertView = mInflater.inflate(R.layout.item_group, parent, false);
 	}
 
 	MenuGroup group = (MenuGroup) getGroup(groupPosition);
 	CheckedTextView ctv = (CheckedTextView) convertView;
 	ctv.setText(group.getName());
 	ctv.setChecked(isExpanded);
-
+	ctv.setTag(groupPosition);
+	
 	return convertView;
     }
 
@@ -46,18 +46,12 @@ public class MenuAdapter extends CustomBaseExpandableListAdapter {
 	MenuItem child = (MenuItem) getChild(groupPosition, childPosition);
 
 	if (convertView == null) {
-	    convertView = inflater.inflate(R.layout.item_child, parent, false);
+	    convertView = mInflater.inflate(R.layout.item_child, parent, false);
 	}
 
 	((TextView) convertView).setText(child.getName());
-
-	convertView.setOnClickListener(new OnClickListener() {
-
-	    @Override
-	    public void onClick(View v) {
-
-	    }
-	});
+	convertView.setTag(child);
+	
 	return convertView;
     }
 
@@ -65,5 +59,4 @@ public class MenuAdapter extends CustomBaseExpandableListAdapter {
     public boolean isChildSelectable(int groupPosition, int childPosition) {
 	return true;
     }
-
 }

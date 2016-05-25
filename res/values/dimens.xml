@@ -9,5 +9,22 @@
          https://developer.android.com/design/patterns/navigation-drawer.html
     -->
     <dimen name="navigation_drawer_width">240dp</dimen>
+    
+    <!-- paddings -->
+    <dimen name="padding_smallest">3dp</dimen>
+    <dimen name="padding_small">5dp</dimen>
+    <dimen name="padding_default">10dp</dimen>
+    
+    <!-- margins -->
+    <dimen name="margin_small">5dp</dimen>
+    <dimen name="margin_default">10dp</dimen>
+    
+    <!-- corners -->
+    <dimen name="corner_radius_small">3dp</dimen>
+    <dimen name="corner_radius_default">5dp</dimen>
+    <dimen name="corner_radius_big">10dp</dimen>
+    
+    <!-- length -->
+    <dimen name="grid_item_width">250dp</dimen>
 
 </resources>

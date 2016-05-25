@@ -13,6 +13,7 @@ public class MenuItem extends SimpleElement {
      */
     private static final long serialVersionUID = 689396353637688830L;
 
+    private int resID;
     private String description;
     
     public MenuItem() {
@@ -41,5 +42,13 @@ public class MenuItem extends SimpleElement {
 
     public void setDescription(String description) {
 	this.description = description;
+    }
+
+    public int getResID() {
+	return resID;
+    }
+
+    public void setResID(int resID) {
+	this.resID = resID;
     }
 }

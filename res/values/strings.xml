@@ -35,5 +35,11 @@
     	<string name="activate_scratch_card">Activate Scratch Card</string>
     	<string name="money_transfer">Money Transfer</string>
     	<!--  -->
+    	<string name="current_password">Current Password</string>
+    	<string name="required_indicator">*</string>
+    	<string name="new_password">New Password</string>
+    	<string name="confirm_new_password">Confirm New Password</string>
+    	<string name="personal_question">Set A Personal Question</string>
+    	<string name="confirm">Confirm</string>
     	
 </resources>

@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import az.nar.mobileapp.nar.view.MenuGroup;
 import az.nar.mobileapp.nar.view.MenuItem;
 
 public class JSON {
@@ -18,15 +19,39 @@ public class JSON {
     public static final String FLD_CHILDREN = "children";
     
     public static JSONArray navigationMenu;
-
-    public static List<MenuItem> getMenuChildren(int groupIndex) throws IndexOutOfBoundsException, JSONException{
-	if (groupIndex > navigationMenu.length() || groupIndex < 0) {
-	    throw new IndexOutOfBoundsException("Menu is not loaded or illegal menu group index selected");
+    
+    static {
+	try {
+	    navigationMenu = getMenu();
+	} catch (JSONException e) {
+	    e.printStackTrace();
 	}
+    } 
+
+    public static List<MenuGroup> getMenuGroups() throws JSONException {
+	List<MenuGroup> groups = new ArrayList<MenuGroup>();
+	
+	for (int i = 0; i < navigationMenu.length(); i++) {
+	    JSONObject object = navigationMenu.getJSONObject(i);
+	    MenuGroup group = new MenuGroup(object);
+	    groups.add(group);
+	}
+	
+	return groups;
+    }
+    
+    public static List<MenuItem> getMenuChildren(long groupID) throws JSONException{
 	
 	List<MenuItem> items = new ArrayList<MenuItem>();
 	
-	JSONObject object = navigationMenu.getJSONObject(groupIndex);
+	JSONObject object = null;
+	for (int i = 0; i < navigationMenu.length(); i++) {
+	    object = navigationMenu.getJSONObject(i);
+	    if (object.getLong(FLD_ID) == groupID) {
+		break;
+	    }
+	}
+	
 	JSONArray array = object.getJSONArray(FLD_CHILDREN);
 	
 	for (int i = 0; i < array.length(); i++) {
@@ -38,8 +63,8 @@ public class JSON {
 	return items;
     }
     
-    public static JSONArray getMenu() throws JSONException {
-	navigationMenu = new JSONArray();
+    private static JSONArray getMenu() throws JSONException {
+	JSONArray menu = new JSONArray();
 	JSONObject menuGroup;
 	JSONArray menuChildren;
 	JSONObject menuItem;
@@ -99,7 +124,7 @@ public class JSON {
 	menuChildren.put(menuItem);
 
 	menuGroup.put(FLD_CHILDREN, menuChildren);
-	navigationMenu.put(menuGroup);
+	menu.put(menuGroup);
 	// -----------------------------------------
 
 	// Operations
@@ -151,7 +176,7 @@ public class JSON {
 	menuChildren.put(menuItem);
 
 	menuGroup.put(FLD_CHILDREN, menuChildren);
-	navigationMenu.put(menuGroup);
+	menu.put(menuGroup);
 	// -------------------------------
 
 	// Payment
@@ -173,8 +198,18 @@ public class JSON {
 	menuChildren.put(menuItem);
 
 	menuGroup.put(FLD_CHILDREN, menuChildren);
-	navigationMenu.put(menuGroup);
+	menu.put(menuGroup);
 	// -------------------------------
-	return navigationMenu;
+	return menu;
+    }
+    
+    public static List<MenuGroup> getMenuList() throws JSONException {
+	List<MenuGroup> groups = new ArrayList<MenuGroup>();
+	for (int i = 0; i < navigationMenu.length(); i++) {
+	    JSONObject groupObject = navigationMenu.getJSONObject(i);
+	    MenuGroup group = new MenuGroup(groupObject);
+	    groups.add(group);
+	}
+	return groups;
     }
 }

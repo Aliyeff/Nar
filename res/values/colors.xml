@@ -4,4 +4,14 @@
     <color name="white">#FFFFFF</color>
     <color name="title_color">#333333</color>
     <color name="disabled_text">#696969</color>
+    <color name="black">#000000</color>
+    <color name="shape_border_gray">#CCCCCC</color>
+    <color name="shape_gradient_up">#FDFDFD</color>
+    <color name="shape_gradient_down">#E7E7E7</color>
+    <color name="shape_maron_normal_gradient_up">#B41E46</color>
+    <color name="shape_maron_normal_gradient_center">#BA2D52</color>
+    <color name="shape_maron_normal_gradient_down">#9F1A3D</color>
+    <color name="shape_maron_down_gradient_up">#B41E46</color>
+    <color name="shape_maron_down_gradient_center">#B51F47</color>
+    <color name="shape_maron_down_gradient_down">#9F1A3D</color>
 </resources>

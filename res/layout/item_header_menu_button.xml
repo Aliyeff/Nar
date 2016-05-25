@@ -1,0 +1,9 @@
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/btnMenuGroup"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:textColor="@drawable/selector_menu_bar_button"
+    style="?android:attr/buttonBarButtonStyle" />

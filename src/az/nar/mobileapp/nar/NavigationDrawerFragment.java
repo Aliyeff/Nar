@@ -1,18 +1,13 @@
 package az.nar.mobileapp.nar;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.content.SharedPreferences;
@@ -27,9 +22,10 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.Toast;
-import az.nar.mobileapp.nar.json.JSON;
+import static az.nar.mobileapp.nar.json.JSON.*;
+
+import az.nar.mobileapp.nar.utils.main.MenuAdapter;
 import az.nar.mobileapp.nar.view.MenuGroup;
-import az.nar.mobileapp.nar.view.MenuItem;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation
@@ -43,7 +39,7 @@ public class NavigationDrawerFragment extends Fragment implements OnGroupExpandL
     /**
      * Remember the position of the selected item.
      */
-    private static final String STATE_SELECTED_SECTION_ID = "selected_navigation_drawer_id";
+    private static final String STATE_SELECTED_SECTION_NO = "selected_navigation_drawer_no";
 
     /**
      * Per the design guidelines, you should show the drawer on launch until the
@@ -65,7 +61,7 @@ public class NavigationDrawerFragment extends Fragment implements OnGroupExpandL
     private ExpandableListView mDrawerListView;
     private View mFragmentContainerView;
 
-    private long mCurrentSelectedSectionID = 0;
+    private int mCurrentSelectedSectionNo = 0;
     private int mLastExpandedPosition = -1;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
@@ -84,12 +80,12 @@ public class NavigationDrawerFragment extends Fragment implements OnGroupExpandL
 	mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
 
 	if (savedInstanceState != null) {
-	    mCurrentSelectedSectionID = savedInstanceState.getLong(STATE_SELECTED_SECTION_ID);
+	    mCurrentSelectedSectionNo = savedInstanceState.getInt(STATE_SELECTED_SECTION_NO);
 	    mFromSavedInstanceState = true;
 	}
 
 	// Select either the default item (0) or the last selected item.
-	selectItem(mCurrentSelectedSectionID);
+	selectItem(mCurrentSelectedSectionNo);
     }
 
     @Override
@@ -119,14 +115,7 @@ public class NavigationDrawerFragment extends Fragment implements OnGroupExpandL
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
-	// mDrawerListView.setAdapter();
-	// new ArrayAdapter<String>(getActivity().getApplicationContext(),
-	// android.R.layout.simple_list_item_1,
-	// android.R.id.text1, new String[] {
-	// getString(R.string.title_section1),
-	// getString(R.string.title_section2),
-	// getString(R.string.title_section3), }));
-//	mDrawerListView.setItemChecked(mCurrentSelectedSectionID, true);
+	
 	return mDrawerListView;
     }
 
@@ -232,27 +221,20 @@ public class NavigationDrawerFragment extends Fragment implements OnGroupExpandL
 	mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
-    private void selectItem(long sectionId) {
-	mCurrentSelectedSectionID = sectionId;
-//	if (mDrawerListView != null) {
-//	    mDrawerListView.setItemChecked(sectionId, true);
-//	}
+    private void selectItem(int sectionNo) {
+	mCurrentSelectedSectionNo = sectionNo;
+	
 	if (mDrawerLayout != null) {
 	    mDrawerLayout.closeDrawer(mFragmentContainerView);
 	}
+	
 	if (mCallbacks != null) {
-	    mCallbacks.onNavigationDrawerItemSelected(sectionId);
+	    mCallbacks.onNavigationDrawerItemSelected(sectionNo);
 	}
     }
 
     private void loadMenu(LayoutInflater inflater) throws JSONException {
-	List<MenuGroup> groups = new ArrayList<MenuGroup>();
-	JSONArray groupsArray = JSON.getMenu();
-	for (int i = 0; i < groupsArray.length(); i++) {
-	    JSONObject groupObject = groupsArray.getJSONObject(i);
-	    MenuGroup group = new MenuGroup(groupObject);
-	    groups.add(group);
-	}
+	List<MenuGroup> groups = getMenuList();
 
 	MenuAdapter adapter = new MenuAdapter(inflater, groups);
 	mDrawerListView.setAdapter(adapter);
@@ -277,7 +259,7 @@ public class NavigationDrawerFragment extends Fragment implements OnGroupExpandL
     @Override
     public void onSaveInstanceState(Bundle outState) {
 	super.onSaveInstanceState(outState);
-	outState.putLong(STATE_SELECTED_SECTION_ID, mCurrentSelectedSectionID);
+	outState.putInt(STATE_SELECTED_SECTION_NO, mCurrentSelectedSectionNo);
     }
 
     @Override
@@ -338,7 +320,7 @@ public class NavigationDrawerFragment extends Fragment implements OnGroupExpandL
 	/**
 	 * Called when an item in the navigation drawer is selected.
 	 */
-	void onNavigationDrawerItemSelected(long sectionId);
+	void onNavigationDrawerItemSelected(int sectionNo);
     }
 
     @Override
@@ -350,6 +332,7 @@ public class NavigationDrawerFragment extends Fragment implements OnGroupExpandL
 
 	mDrawerListView.setItemChecked(groupPosition, true);
 	mLastExpandedPosition = groupPosition;
+	mCallbacks.onNavigationDrawerItemSelected(mLastExpandedPosition);
 
 	// selectItem(groupPosition);
     }

@@ -2,10 +2,11 @@ package az.nar.mobileapp.nar.utils;
 
 import java.util.List;
 
+import android.database.DataSetObserver;
 import android.view.LayoutInflater;
-import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
 
-public abstract class CustomBaseAdapter extends BaseAdapter {
+public abstract class CustomBaseAdapter implements ListAdapter {
 
     protected List<?> mList;
     protected LayoutInflater mInflater;
@@ -26,11 +27,7 @@ public abstract class CustomBaseAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-	if (mList != null) {
-	    return mList.size();
-	}
-
-	return 0;
+	return mList == null ? 0: mList.size();
     }
 
     @Override
@@ -41,6 +38,46 @@ public abstract class CustomBaseAdapter extends BaseAdapter {
     @Override
     public long getItemId(int position) {
 	return ((SimpleElement) getItem(position)).getId();
+    }
+
+    @Override
+    public boolean areAllItemsEnabled() {
+	return true;
+    }
+
+    @Override
+    public boolean isEnabled(int position) {
+	return true;
+    }
+
+    @Override
+    public void registerDataSetObserver(DataSetObserver observer) {
+	// TODO Auto-generated method stub
+    }
+
+    @Override
+    public void unregisterDataSetObserver(DataSetObserver observer) {
+	// TODO Auto-generated method stub
+    }
+
+    @Override
+    public boolean hasStableIds() {
+	return false;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+	return 0;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+	return 1;
+    }
+
+    @Override
+    public boolean isEmpty() {
+	return getCount() == 0;
     }
 
     public int getPosition(long id) {
